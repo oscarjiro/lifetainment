@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+:root {
+    /* NAVBAR HEIGHT */
+    --navbar-height: 60px;
+
+    /* BASIC COLORS */
+    --black-rgb: 24, 24, 24;
+    --white-rgb: 244, 244, 232;
+    --blue-rgb: 57, 106, 230;
+    --red-rgb: 208, 84, 66; /*255, 69, 0*/
+    --gray-rgb: 128, 128, 128;
+    --green-rgb: 51, 184, 100;
+    --orange-rgb: 255, 121, 0;
+    --pink-rgb: 231, 84, 128;
+    --light-pink-rgb: 252, 164, 150;
+    --violet-rgb: 220, 178, 213;
+
+    /* FOREGROUND AND BACKGROUND */
+    --fg-rgb: var(--black-rgb);
+    --bg-rgb: var(--white-rgb);
+
+    /* PROGRESS COLORS */
+    --notstarted-rgb: var(--gray-rgb);
+    --waitingon-rgb: var(--orange-rgb);
+    --inprogress-rgb: var(--blue-rgb);
+    --done-rgb: var(--green-rgb);
+}
+
+@layer base {
+    *::-webkit-scrollbar {
+        @apply w-[0px];
+    }
+
+    *::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        @apply bg-transparent rounded-[0px];
+    }
+
+    * {
+        @apply selection:bg-[rgb(var(--fg-rgb))]
+                selection:text-[rgb(var(--bg-rgb))]
+                scroll-smooth;
+    }
+
+    body {
+        @apply bg-[rgb(var(--bg-rgb))] 
+                text-[rgb(var(--fg-rgb))]
+                overflow-x-hidden w-screen
+                font-["Space_Grotesk",sans-serif];
+    }
+
+    /* nav {
+        @apply fixed top-0 left-0 w-screen h-[var(--navbar-height)] 
+                flex smooth
+                px-6 min-[300px]:px-8 min-[400px]:px-12 
+                py-4 justify-between items-center
+                z-[100];
+    } */
+
+    main {
+        @apply px-6 min-[300px]:px-8 min-[400px]:px-12  
+                py-8 mt-[calc(var(--navbar-height)*2)]
+                overflow-x-hidden
+                min-h-[calc(100vh-var(--navbar-height))]
+                smooth duration-500;
+    }
+
+    footer {
+        @apply px-8 min-[300px]:px-12 min-[400px]:px-16 
+                py-12 overflow-x-hidden
+                bg-[rgb(var(--red-rgb))]
+                text-[rgb(var(--white-rgb))]
+                smooth duration-500
+                preset-bg-pink;
+    }
+
+    form {
+        @apply w-full
+                min-[700px]:w-[600px]
+                space-y-6;
+    }
+
+    label {
+        @apply text-upperwide;
+    }
+
+    input {
+        @apply focus:outline-none;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
+        @apply border-b 
+                border-[rgb(var(--fg-rgb))] 
+                bg-transparent p-1;
+    }
+
+    input[type="file"] {
+        @apply hidden absolute;
+    }
+
+    select {
+        @apply bg-transparent focus:outline-none
+                py-2 px-3
+                rounded-lg border border-[rgb(var(--fg-rgb))];
+    }
+
+    option {
+        @apply text-[rgb(var(--black-rgb))];
+    }
+
+    textarea {
+        @apply w-full bg-transparent p-3
+                border border-[rgb(var(--fg-rgb))]
+                focus:outline-none
+                rounded-lg resize-none;
+    }
+
+    button {
+        @apply px-4 py-2 
+                border border-[rgb(var(--fg-rgb))] text-[rgb(var(--fg-rgb))]
+                rounded-lg text-upperwide w-full smooth
+                hover:bg-[rgb(var(--fg-rgb))] hover:text-[rgb(var(--bg-rgb))]
+                cursor-pointer;
+    }
+}
+
+@layer components {
+    .nav-link-active {
+        @apply relative 
+                before:content-normal before:absolute
+                before:-top-[40px] before:left-1/2 before:translate-x-1/2
+                before:w-[2px] before:h-[30px] before:bg-[rgb(var(--white-rgb))];
+    }
+}
+
+@layer utilities {
+    /* GENERAL */
+    .smooth {
+        @apply ease-in-out duration-300;
+    }
+
+    /* FONTS */
+    .serif {
+        @apply font-["Playfair_Display",serif];
+    }
+
+    /* TEXT */
+    .text-upperwide {
+        @apply uppercase tracking-widest;
+    }
+
+    .text-link {
+        @apply text-[rgb(var(--blue-rgb))]
+                selection:bg-[rgb(var(--blue-rgb))]
+                selection:text-[rgb(var(--fg-rgb))]
+                smooth hover:text-[rgba(var(--blue-rgb),0.8)];
+    }
+
+    .text-invalid {
+        @apply text-[rgb(var(--red-rgb))]
+                selection:bg-[rgb(var(--red-rgb))]
+                selection:text-[rgb(var(--white-rgb))];
+    }
+
+    .text-inactive {
+        @apply text-[rgba(var(--fg-rgb),0.7)];
+    }
+
+    .text-active {
+        @apply text-[rgb(var(--fg-rgb))];
+    }
+
+    .textarea-counter {
+        @apply absolute z-[1] bottom-[12px] right-[10px] 
+                text-inactive text-sm pointer-events-none 
+                bg-[rgb(var(--bg-rgb))];
+    }
+
+    .text-general-header {
+        @apply text-base
+                min-[300px]:text-lg
+                min-[350px]:text-xl 
+                min-[400px]:text-2xl
+                min-[500px]:text-3xl
+                min-[600px]:text-4xl;
+    }
+
+    .text-general-body {
+        @apply text-sm
+                min-[300px]:text-base
+                min-[400px]:text-lg
+                min-[600px]:text-xl;
+    }
+
+    .text-general-small {
+        @apply text-[10px]
+                min-[300px]:text-[11px]
+                min-[400px]:text-sm
+                min-[600px]:text-base;
+    }
+
+    /* ICON SIZE */
+    .big-icon-general {
+        @apply w-4 h-4
+                min-[350px]:w-5
+                min-[350px]:h-5
+                min-[350px]:w-6
+                min-[350px]:h-6
+                min-[400px]:w-8 
+                min-[400px]:h-8
+                min-[500px]:w-10 
+                min-[500px]:h-10
+                min-[600px]:w-12 
+                min-[600px]:h-12;
+    }
+
+    /* BORDERS */
+    .border-inactive {
+        @apply border-[rgba(var(--fg-rgb),0.4)];
+    }
+
+    .border-active {
+        @apply border-[rgb(var(--fg-rgb))];
+    }
+
+    /* PRESETS */
+    .preset-bg-red {
+        @apply font-light bg-[rgb(var(--red-rgb))]
+                text-[rgb(var(--white-rgb))]
+                selection:bg-[rgb(var(--white-rgb))]
+                selection:text-[rgb(var(--red-rgb))];
+    }
+
+    .preset-bg-pink {
+        @apply font-light bg-[rgb(var(--pink-rgb))]
+                text-[rgb(var(--white-rgb))]
+                selection:bg-[rgb(var(--white-rgb))]
+                selection:text-[rgb(var(--pink-rgb))];
+    }
+
+    .preset-bg-white-pink {
+        @apply font-light bg-[rgb(var(--white-rgb))]
+                text-[rgb(var(--pink-rgb))]
+                selection:bg-[rgb(var(--pink-rgb))]
+                selection:text-[rgb(var(--white-rgb))];
+    }
+
+    .preset-text-red {
+        @apply text-[rgb(var(--red-rgb))]
+                selection:bg-[rgb(var(--red-rgb))]
+                selection:text-[rgb(var(--white-rgb))];
+    }
+
+    .preset-text-white {
+        @apply text-[rgb(var(--white-rgb))]
+                selection:bg-[rgb(var(--white-rgb))]
+                selection:text-[rgb(var(--black-rgb))];
+    }
+}
